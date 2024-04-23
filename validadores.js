@@ -58,6 +58,9 @@ document.addEventListener( 'input', function(e){
 
 // Submit
 document.addEventListener( 'click', function(e){  
+  var button = e.target;
+  if ( !button.matches(window.g_ts.sendButtonCSSSelector)) return;
+  console.log('botão enviar clicado');
   var  form= e.target.closest('form');
   var errors = [];
   if (form.checkValidity()){
