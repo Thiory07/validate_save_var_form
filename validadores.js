@@ -25,7 +25,8 @@ window.g_ts.validateMail = function(email){return /\S+@\S+\.\S+/.test(email);}
 // filters the first valid email from text;
 window.g_ts.filterEmail = function(text) {return text.match(/[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+/gi)[0];}
 // filters phone number, removing all custom characters
-window.g_ts.filterPhone = function(tel,country_code) {
+window.g_ts.filterPhone = function(tel) {
+  var country_code = this.country_code;
   tel = tel.replace(/\D/g, '');
   if (!tel.startsWith(country_code)){ tel = country_code+ tel}
   return '+'+tel;
@@ -39,7 +40,7 @@ window.g_ts.saveEmailToVar = function(input){
   console.log('TS: email salvo em variável da janela');return;
 }
 window.g_ts.savePhoneToVar = function(input){
-  var temp_phone = this.filterPhone(input.value, this.country_code);
+  var temp_phone = this.filterPhone(input.value);
   if (!window.g_ts.validatePhone(temp_phone)){console.log('TS Error:telefone inválido');return;}
   window.g_ts_pii.phone_number  = temp_phone;
   console.log('TS: telefone salvo em variável da janela');return;
@@ -63,26 +64,18 @@ document.addEventListener( 'click', function(e){
   console.log('TS: botão enviar clicado');
   var  form= e.target.closest('form');
   var errors = [];
-  if (form.checkValidity()){
-    console.log('TS: form válidado pelo HTML');
-    if (window.g_ts_pii.email  && !window.g_ts.validateMail(window.g_ts_pii.email)){
-      errors.push('TS Error:Erro de validação no email');
-    }
-    if (window.g_ts_pii.phone_number && !window.g_ts.validatePhone(window.g_ts_pii.phone_number) ) {
-      errors.push('TS Error:Erro de validação no phone number');
-    }
+  if (!form.checkValidity()) return; 
+  console.log('TS: form válidado pelo HTML');
 
-    if (errors.length >0){
-      console.log(errors);
-      return;
-    }
+  if (window.g_ts_pii.email  && !window.g_ts.validateMail(window.g_ts_pii.email)){errors.push('TS Error:Erro de validação no email');}
+  
+  if (window.g_ts_pii.phone_number && !window.g_ts.validatePhone(window.g_ts_pii.phone_number) ) {errors.push('TS Error:Erro de validação no phone number');}
 
-    window.dataLayer = window.dataLayer || [];
-    console.log('dataLayer upd event');
-    window.dataLayer.push({
-      'event': 'dataLayer upd event',
-      'pii':  window.g_ts_pii
-    });
-    return;
-  }
+  if (errors.length >0){console.log(errors);return;}
+
+  window.dataLayer = window.dataLayer || [];
+  console.log('TS: DataLayer UPD event, g_ts_pii na janela');
+  window.dataLayer.push({
+    'event': 'dataLayer upd event'
+  });
 });
