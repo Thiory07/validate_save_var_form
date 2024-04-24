@@ -74,8 +74,8 @@ document.addEventListener( 'click', function(e){
   if (errors.length >0){console.log(errors);return;}
 
   window.dataLayer = window.dataLayer || [];
-  console.log('TS: DataLayer UPD event, g_ts_pii na janela');
+  console.log('TS: DataLayer UPD event, variável g_ts_pii na janela');
   window.dataLayer.push({
-    'event': 'dataLayer upd event'
+    'event': 'upd event'
   });
 });
