@@ -1,3 +1,4 @@
+// Tracking Solution class
 window.g_ts = { 
   emailCSSSelector: "[type=email]",
   phoneCSSSelector: "[type=tel]",
