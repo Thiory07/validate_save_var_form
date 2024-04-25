@@ -58,7 +58,7 @@ document.addEventListener( 'input', function(e){
 document.addEventListener( 'click', function(e){  
   var button = e.target;
   //check if it is the submit button:
-  if ( !button.matches(window.g_ts.sendButtonCSSSelector) && button.closest(window.g_ts.sendButtonCSSSelector)) return;
+  if ( !button.matches(window.g_ts.sendButtonCSSSelector) && !button.closest(window.g_ts.sendButtonCSSSelector)) return;
   console.log('TS: botão enviar clicado');
   // find the eclosest Form;
   var  form= e.target.closest('form'),
