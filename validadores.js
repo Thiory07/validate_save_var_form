@@ -33,18 +33,15 @@ window.g_ts.filterPhone = function(tel) {
   return '+'+tel;
 }
 
-
-window.g_ts.saveEmailToVar = function(input){
-  var temp_mail =this.filterEmail(input.value);
-  if (!window.g_ts.validateMail(temp_mail) ){console.log('TS Error: email inválido');return;}
-  window.g_ts_pii.email = temp_mail;
-  console.log('TS: email salvo em variável da janela');return;
-}
-window.g_ts.savePhoneToVar = function(input){
-  var temp_phone = this.filterPhone(input.value);
-  if (!window.g_ts.validatePhone(temp_phone)){console.log('TS Error:telefone inválido');return;}
-  window.g_ts_pii.phone_number  = temp_phone;
-  console.log('TS: telefone salvo em variável da janela');return;
+// function mais genérica:
+window.g_ts.saveToVar = function(input, filterVar, validateVar, varName){
+ var temp_var = input.value;
+ temp_var = filterVar(temp_var);
+ console.log(temp_var);
+ if ( !validateVar(temp_var)){
+  console.log(`TS Error saveToVar: ${varName} inválido`);return;
+ }
+ window.g_ts_pii[varName] = temp_var;
 }
 
 // Ouvir Inputs
@@ -54,25 +51,32 @@ document.addEventListener( 'input', function(e){
    isPhone = window.g_ts.phoneCSSSelector? input.matches(window.g_ts.phoneCSSSelector):false;
   
   if ( !isPhone && !isEmail ) return;
-  if (isEmail){window.g_ts.saveEmailToVar(input);return;} 
-  if (isPhone){window.g_ts.savePhoneToVar(input);return;}
+  if (isEmail){window.g_ts.saveToVar(input, window.g_ts.filterEmail, window.g_ts.validateMail, 'email' );return;} 
+  if (isEmail){window.g_ts.saveToVar(input, window.g_ts.filterPhone, window.g_ts.validatePhone, 'phone_number' );return;} 
 });
 
 // Submit
 document.addEventListener( 'click', function(e){  
   var button = e.target;
-  if ( !button.matches(window.g_ts.sendButtonCSSSelector)) return;
+  if ( !button.matches(window.g_ts.sendButtonCSSSelector) && button.closest(window.g_ts.sendButtonCSSSelector)) return;
   console.log('TS: botão enviar clicado');
-  var  form= e.target.closest('form');
-  var errors = [];
+  var  form= e.target.closest('form'),
+   errors = [];
   if (!form.checkValidity()) return; 
   console.log('TS: form válidado pelo HTML');
 
-  if (window.g_ts_pii.email  && !window.g_ts.validateMail(window.g_ts_pii.email)){errors.push('TS Error:Erro de validação no email');}
+  if (window.g_ts_pii.email  && !window.g_ts.validateMail(window.g_ts_pii.email)){
+    errors.push('TS Error:Erro de validação no email');
+  };
   
-  if (window.g_ts_pii.phone_number && !window.g_ts.validatePhone(window.g_ts_pii.phone_number) ) {errors.push('TS Error:Erro de validação no phone number');}
+  if (window.g_ts_pii.phone_number && !window.g_ts.validatePhone(window.g_ts_pii.phone_number) ) {
+    errors.push('TS Error:Erro de validação no phone number');
+  };
 
-  if (errors.length >0){console.log(errors);return;}
+  if (errors.length >0){
+    console.log(errors);
+    return;
+  };
 
   window.dataLayer = window.dataLayer || [];
   console.log('TS: DataLayer UPD event, variável g_ts_pii na janela');
