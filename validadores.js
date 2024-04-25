@@ -48,8 +48,8 @@ document.addEventListener( 'input', function(e){
   var input = e.target,
    isEmail = window.g_ts.emailCSSSelector? input.matches(window.g_ts.emailCSSSelector):false,
    isPhone = window.g_ts.phoneCSSSelector? input.matches(window.g_ts.phoneCSSSelector):false;
-  console.log(isPhone,  input.value);
-  if ( !isPhone && !isEmail ) return;
+
+   if ( !isPhone && !isEmail ) return;
   if (isEmail){window.g_ts.saveToVar(input, window.g_ts.filterEmail, window.g_ts.validateMail, 'email' );return;} 
   if (isPhone){window.g_ts.saveToVar(input, window.g_ts.filterPhone, window.g_ts.validatePhone, 'phone_number' );return;} 
 });
