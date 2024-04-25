@@ -37,7 +37,6 @@ window.g_ts.filterPhone = function(tel) {
 window.g_ts.saveToVar = function(input, filterVar, validateVar, varName){
  var temp_var = input.value;
  temp_var = filterVar(temp_var);
- console.log(temp_var);
  if ( !validateVar(temp_var)){
   console.log(`TS Error saveToVar: ${varName} inválido`);return;
  }
