@@ -2,7 +2,7 @@
 window.g_ts = { 
   emailCSSSelector: "[type=email]",
   phoneCSSSelector: "[type=tel]",
-  country_code: '54',
+  country_code: '55',
   sendButtonCSSSelector: '[type="submit"]'
 };
 window.g_ts_pii={
@@ -27,7 +27,7 @@ window.g_ts.validateMail = function(email){return /\S+@\S+\.\S+/.test(email);}
 window.g_ts.filterEmail = function(text) {return text.match(/[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+/gi)[0];}
 // filters phone number, removing all custom characters
 window.g_ts.filterPhone = function(tel) {
-  var country_code = this.country_code;
+  var country_code = window.g_ts.country_code;
   tel = tel.replace(/\D/g, '');
   if (!tel.startsWith(country_code)){ tel = country_code+ tel}
   return '+'+tel;
@@ -49,17 +49,19 @@ document.addEventListener( 'input', function(e){
   var input = e.target,
    isEmail = window.g_ts.emailCSSSelector? input.matches(window.g_ts.emailCSSSelector):false,
    isPhone = window.g_ts.phoneCSSSelector? input.matches(window.g_ts.phoneCSSSelector):false;
-  
+  console.log(isPhone,  input.value);
   if ( !isPhone && !isEmail ) return;
   if (isEmail){window.g_ts.saveToVar(input, window.g_ts.filterEmail, window.g_ts.validateMail, 'email' );return;} 
-  if (isEmail){window.g_ts.saveToVar(input, window.g_ts.filterPhone, window.g_ts.validatePhone, 'phone_number' );return;} 
+  if (isPhone){window.g_ts.saveToVar(input, window.g_ts.filterPhone, window.g_ts.validatePhone, 'phone_number' );return;} 
 });
 
 // Submit
 document.addEventListener( 'click', function(e){  
   var button = e.target;
+  //check if it is the submit button:
   if ( !button.matches(window.g_ts.sendButtonCSSSelector) && button.closest(window.g_ts.sendButtonCSSSelector)) return;
   console.log('TS: botão enviar clicado');
+  // find the eclosest Form;
   var  form= e.target.closest('form'),
    errors = [];
   if (!form.checkValidity()) return; 
@@ -80,7 +82,5 @@ document.addEventListener( 'click', function(e){
 
   window.dataLayer = window.dataLayer || [];
   console.log('TS: DataLayer UPD event, variável g_ts_pii na janela');
-  window.dataLayer.push({
-    'event': 'upd event'
-  });
+  window.dataLayer.push({'event': 'upd event'});
 });
