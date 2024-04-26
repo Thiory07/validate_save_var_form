@@ -90,9 +90,25 @@ document.addEventListener( 'click', function(e){
 
   window.dataLayer = window.dataLayer || [];
   console.log('TS: DataLayer UPD event, variável g_ts_pii na janela');
+
+
+ window.g_ts_pii.address = {};
+ window.g_ts_pii.address.first_name = document.querySelector('[name="First_name]"').value.toLowerCase();
+ window.g_ts_pii.address.last_name = document.querySelector('[name="Last_name]"').value.toLowerCase();
+ window.g_ts_pii.address.street = document.querySelector('[name="Street_window.g_ts_pii.Address]"').value.toLowerCase();
+ window.g_ts_pii.address.city = document.querySelector('[name="City]"').value.toLowerCase();
+ window.g_ts_pii.address.region = document.querySelector('[name="Region]"').value.toLowerCase();
+ window.g_ts_pii.address.postal_code = document.querySelector('[name="Country]"').value.toLowerCase();
+ window.g_ts_pii.address.country = document.querySelector('[name="Postal Code]"').value.toLowerCase();
+
   window.dataLayer.push({'event': 'upd event'});
 });
 
 function callConsole(message){
   console.log(message);
 }
+
+
+
+
+
