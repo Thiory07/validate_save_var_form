@@ -6,8 +6,8 @@ window.g_ts = {
   sendButtonCSSSelector: '[type="submit"]',
 
   // Helper variables
-  isValidEmail: false,
-  isValidPhone: false,
+  isValidemail: false,
+  isValidphone_number: false,
 };
 window.g_ts_pii={
 //   "email": "email",
@@ -44,6 +44,7 @@ window.g_ts.saveToVar = function(input, filterVar, validateVar, varName){
  if ( !validateVar(temp_var)){
   console.log(`TS Error saveToVar: ${varName} inválido`);return;
  }
+ window.g_ts[`isValid${varName}`] =  true;
  window.g_ts_pii[varName] = temp_var;
 }
 
@@ -91,3 +92,7 @@ document.addEventListener( 'click', function(e){
   console.log('TS: DataLayer UPD event, variável g_ts_pii na janela');
   window.dataLayer.push({'event': 'upd event'});
 });
+
+function callConsole(message){
+  console.log(message);
+}
