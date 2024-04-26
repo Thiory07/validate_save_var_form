@@ -75,11 +75,11 @@ document.addEventListener( 'click', function(e){
   if (!form.checkValidity()) return; 
   console.log('TS: form válidado pelo HTML');
 
-  if (window.g_ts_pii.email  && !window.g_ts.isValidEmail){
+  if (window.g_ts_pii.email  && window.g_ts.isValidEmail){
     errors.push('TS Error:Erro de validação no email');
   };
   
-  if (window.g_ts_pii.phone_number && !window.g_ts.isValidPhone ) {
+  if (window.g_ts_pii.phone_number && window.g_ts.isValidPhone ) {
     errors.push('TS Error:Erro de validação no phone number');
   };
 
