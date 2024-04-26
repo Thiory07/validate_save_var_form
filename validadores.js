@@ -3,7 +3,11 @@ window.g_ts = {
   emailCSSSelector: "[type=email]",
   phoneCSSSelector: "[type=tel]",
   country_code: '55',
-  sendButtonCSSSelector: '[type="submit"]'
+  sendButtonCSSSelector: '[type="submit"]',
+
+  // Helper variables
+  isValidEmail: false,
+  isValidPhone: false,
 };
 window.g_ts_pii={
 //   "email": "email",
@@ -50,7 +54,10 @@ document.addEventListener( 'input', function(e){
    isPhone = window.g_ts.phoneCSSSelector? input.matches(window.g_ts.phoneCSSSelector):false;
 
    if ( !isPhone && !isEmail ) return;
-  if (isEmail){window.g_ts.saveToVar(input, window.g_ts.filterEmail, window.g_ts.validateMail, 'email' );return;} 
+  if (isEmail){
+    window.g_ts.saveToVar(input, window.g_ts.filterEmail, window.g_ts.validateMail, 'email' );
+    return;
+  } 
   if (isPhone){window.g_ts.saveToVar(input, window.g_ts.filterPhone, window.g_ts.validatePhone, 'phone_number' );return;} 
 });
 
@@ -63,14 +70,15 @@ document.addEventListener( 'click', function(e){
   // find the eclosest Form;
   var  form= e.target.closest('form'),
    errors = [];
+  if (!form){console.log('TS Error: Não é um form'); return;}
   if (!form.checkValidity()) return; 
   console.log('TS: form válidado pelo HTML');
 
-  if (window.g_ts_pii.email  && !window.g_ts.validateMail(window.g_ts_pii.email)){
+  if (window.g_ts_pii.email  && !window.g_ts.isValidEmail){
     errors.push('TS Error:Erro de validação no email');
   };
   
-  if (window.g_ts_pii.phone_number && !window.g_ts.validatePhone(window.g_ts_pii.phone_number) ) {
+  if (window.g_ts_pii.phone_number && !window.g_ts.isValidPhone ) {
     errors.push('TS Error:Erro de validação no phone number');
   };
 
