@@ -97,8 +97,8 @@ document.addEventListener( 'click', function(e){
   window.g_ts_pii.address.street = document.querySelector('[name="Street_Address"]').value.toLowerCase();
   window.g_ts_pii.address.city = document.querySelector('[name="City"]').value.toLowerCase();
   window.g_ts_pii.address.region = document.querySelector('[name="Region"]').value.toLowerCase();
-  window.g_ts_pii.address.postal_code = document.querySelector('[name="Country"]').value.toLowerCase();
-  window.g_ts_pii.address.country = document.querySelector('[name="Postal Code"]').value.toLowerCase();
+  window.g_ts_pii.address.postal_code = document.querySelector('[name="Postal Code"]').value.toLowerCase();
+  window.g_ts_pii.address.country = document.querySelector('[name="Country"]').value.toLowerCase();
 
   window.dataLayer.push({'event': 'upd event'});
 });
