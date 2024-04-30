@@ -9,6 +9,9 @@
             display: block;
             margin: 5px 0;
         }
+        .hidden{
+            display: none;
+        }
     </style>
     <script src="validadores.js"></script>
     <!-- Google Tag Manager -->
@@ -43,12 +46,13 @@
         </form>
         <!-- <button type="submit">Evento do usuário</button>
         <textarea name="Console" id="" cols="30" rows="10" placeholder="Console"></textarea> -->
-        
+        <p class="hidden">Enviado</p>
     </div>
 
     <script>
     document.querySelector('form').addEventListener('submit', function(e){
        e.preventDefault();
+       document.querySelector('.hidden').classList.remove('hidden');
     });
     </script>
 </body>
