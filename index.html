@@ -41,8 +41,15 @@
 
             <button type="submit">Converter</button>
         </form>
-        <button type="submit">Evento do usuário</button>
-        <textarea name="Console" id="" cols="30" rows="10" placeholder="Console"></textarea>
+        <!-- <button type="submit">Evento do usuário</button>
+        <textarea name="Console" id="" cols="30" rows="10" placeholder="Console"></textarea> -->
+        
     </div>
+
+    <script>
+    document.querySelector('form').addEventListener('submit', function(e){
+       e.preventDefault();
+    });
+    </script>
 </body>
 </html>
