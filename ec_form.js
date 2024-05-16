@@ -3,7 +3,8 @@ window.g_ts = {
   emailCSSSelector: "[type=email]",
   phoneCSSSelector: "[type=tel]",
   country_code: '55',
-  sendButtonCSSSelector: '[type="submit"]',
+  countryCideCSSSelector: "", // optional
+  sendButtonCSSSelector: '[type="submit"]', // optional
 
   // Helper variables
   isValidemail: false,
@@ -42,7 +43,7 @@ document.addEventListener( 'input', function(e){
    isEmail = window.g_ts.emailCSSSelector? input.matches(window.g_ts.emailCSSSelector):false,
    isPhone = window.g_ts.phoneCSSSelector? input.matches(window.g_ts.phoneCSSSelector):false;
 
-   if ( !isPhone && !isEmail ) return;
+  if ( !isPhone && !isEmail ) return;
   if (isEmail){
     window.g_ts.saveToVar(input, window.g_ts.filterEmail, window.g_ts.validateMail, 'email' );
     return;
@@ -57,26 +58,14 @@ document.addEventListener( 'click', function(e){
   if ( !button.matches(window.g_ts.sendButtonCSSSelector) && !button.closest(window.g_ts.sendButtonCSSSelector)) return;
   console.log('TS: botão enviar clicado');
   // find the eclosest Form;
-  var  form= e.target.closest('form'),
-   errors = [];
+  var  form= e.target.closest('form');
   if (!form){console.log('TS Error: Não é um form'); return;}
-  if (!form.checkValidity()) return; 
-  console.log('TS: form válidado pelo HTML');
-
-  if (window.g_ts_pii.email  && window.g_ts.isValidEmail){errors.push('TS Error:Erro de validação no email');};
-  if (window.g_ts_pii.phone_number && window.g_ts.isValidPhone ) {errors.push('TS Error:Erro de validação no phone number'); };
-
-  if (errors.length >0){
-    console.log(errors);
-    return;
-  };
+  if (!form.checkValidity()){console.log('TS: form inválido pelo HTML'); return; }
+  if (window.g_ts_pii.email  && window.g_ts.isValidEmail){errors.push('TS Error:Erro de validação no email'); return;};
+  if (window.g_ts_pii.phone_number && window.g_ts.isValidPhone ) {errors.push('TS Error:Erro de validação no phone number'); return;};
 
   window.dataLayer = window.dataLayer || [];
-  console.log('TS: DataLayer UPD event, variável g_ts_pii na janela');
+  console.log('TS: DataLayer UPD event push e variável g_ts_pii na janela');
 
   window.dataLayer.push({'event': 'upd event'});
 });
-
-function callConsole(message){
-  console.log(message);
-}
