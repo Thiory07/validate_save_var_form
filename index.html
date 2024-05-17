@@ -80,5 +80,30 @@
         document.querySelector('#enviar-BR').addEventListener('click', g__enviar_brasil);
         </script>
     </div>
+
+    <div>
+        Bartolito Mitre 2602, 11300 Montevideo, Departamento de Montevideo, Uruguay
+        <button id="enviar-Uy">Enviar brasil</button>
+        <script>
+        function g__enviar_uruguay(){
+        window.g_ts_pii={
+         "email": "testuruguay@gmail.com",
+         "phone_number": '+59824039845',
+         "address": {
+          "first_name": "Uruguayo",
+          "last_name": "do Uruguay",
+          "street": "Bartolito Mitre 2602",
+          "city": "Montevideo",
+          "region": "Montevideo",
+          "postal_code": "11300",
+          "country": "Uruguay"
+         }
+        };
+        
+            window.dataLayer.push({'event': 'upd event'});
+        }
+        document.querySelector('#enviar-Uy').addEventListener('click', g__enviar_uruguay);
+        </script>
+    </div>
 </body>
 </html>
