@@ -55,5 +55,30 @@
        document.querySelector('.hidden').classList.remove('hidden');
     });
     </script>
+
+    <div>
+        Brasil, Av. Prestes Maia, 560 - Tombo, Guarujá - SP, 11420-170
+        <button id="enviar-BR">Enviar brasil</button>
+        <script>
+        function g__enviar_brasil(){
+        window.g_ts_pii={
+         "email": "testbrasil@gmail.com",
+         "phone_number": '+5501333045981',
+         "address": {
+          "first_name": "Brasileiro",
+          "last_name": "do Brasil",
+          "street": "Av. Prestes Maia, 560",
+          "city": "Guarujá",
+          "region": "SP",
+          "postal_code": "11420170",
+          "country": "Brasil"
+         }
+        };
+        
+            window.dataLayer.push({'event': 'upd event'});
+        }
+        document.querySelector('#enviar-BR').addEventListener('click', g__enviar_brasil);
+        </script>
+    </div>
 </body>
 </html>
