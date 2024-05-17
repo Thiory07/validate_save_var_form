@@ -130,5 +130,30 @@
         document.querySelector('#enviar-Ar').addEventListener('click', g__enviar_argentina);
         </script>
     </div>
+
+    <div>
+        Progreso 1337, 8500409 Quinta Normal, Región Metropolitana, Chile
+        <button id="enviar-Cl">Chile</button>
+        <script>
+        function g__enviar_chile(){
+        window.g_ts_pii={
+         "email": "testchile@gmail.com",
+         "phone_number": '+56227737087',
+         "address": {
+          "first_name": "chileno",
+          "last_name": "do chile",
+          "street": "Quinta Normal",
+          "city": "Santiago",
+          "region": "Chile",
+          "postal_code": "8500409",
+          "country": "Chile"
+         }
+        };
+        
+            window.dataLayer.push({'event': 'upd event'});
+        }
+        document.querySelector('#enviar-Cl').addEventListener('click', g__enviar_chile);
+        </script>
+    </div>
 </body>
 </html>
