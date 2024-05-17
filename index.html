@@ -58,7 +58,7 @@
 
     <div>
         Brasil, Av. Prestes Maia, 560 - Tombo, Guarujá - SP, 11420-170
-        <button id="enviar-BR">Enviar brasil</button>
+        <button id="enviar-BR">Enviar Brasil</button>
         <script>
         function g__enviar_brasil(){
         window.g_ts_pii={
@@ -83,7 +83,7 @@
 
     <div>
         Bartolito Mitre 2602, 11300 Montevideo, Departamento de Montevideo, Uruguay
-        <button id="enviar-Uy">Enviar brasil</button>
+        <button id="enviar-Uy">Enviar Uruguay</button>
         <script>
         function g__enviar_uruguay(){
         window.g_ts_pii={
@@ -103,6 +103,31 @@
             window.dataLayer.push({'event': 'upd event'});
         }
         document.querySelector('#enviar-Uy').addEventListener('click', g__enviar_uruguay);
+        </script>
+    </div>
+
+    <div>
+        Arévalo 2882, C1426 Cdad. Autónoma de Buenos Aires, Argentina
+        <button id="enviar-Uy">Enviar Argentina</button>
+        <script>
+        function g__enviar_argentina(){
+        window.g_ts_pii={
+         "email": "testargentina@gmail.com",
+         "phone_number": '+541147736457',
+         "address": {
+          "first_name": "argentino",
+          "last_name": "do argentina",
+          "street": "Arévalo 2882",
+          "city": "Buenos Aires",
+          "region": "Buenos Aires",
+          "postal_code": "C1426",
+          "country": "Argentina"
+         }
+        };
+        
+            window.dataLayer.push({'event': 'upd event'});
+        }
+        document.querySelector('#enviar-Uy').addEventListener('click', g__enviar_argentina);
         </script>
     </div>
 </body>
