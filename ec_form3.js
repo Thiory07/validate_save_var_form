@@ -12,7 +12,7 @@ function fetch_ts_obj(){
   text = input.value?input.value:input.textContent.trim();
    
   if (input.matches(g_ts_config.CSSEmail)) {
-   if (! /\S+@\S+\.\S+/.test(text) ){
+   if (! /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(text) ){
     console.log('TS: É um e-mail inválido inputs' );
     return;
    }
