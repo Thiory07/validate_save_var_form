@@ -3,8 +3,8 @@ var g_EC = {
     "phone_number" : "[type='tel']"
   };
 
-  window.g_setupEC = Object.create(null);
-  window.g_ECObj = Object.create(null);
+  window.g_setupEC = {};
+  window.g_ECObj = {};
 
   var g_countryCode = '55';
 
