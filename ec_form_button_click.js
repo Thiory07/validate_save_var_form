@@ -20,7 +20,7 @@ var g_ts_config = {
     var emailDomElement = form.querySelector(g_ts_config.emailCssSelector);
     if (emailDomElement){
         var email = emailDomElement.value.trim();
-        if(g_ts_config.emailRegEx.test(input.value)){
+        if(g_ts_config.emailRegEx.test(email)){
             console.log(`TS info: The email saved to Javascript Variable is (${email});`);
             window.g_ts_obj.email = email;
         }
