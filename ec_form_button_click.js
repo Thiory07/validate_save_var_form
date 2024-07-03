@@ -28,7 +28,7 @@ var g_ts_config = {
     var phoneNumberDomElement = form.querySelector(g_ts_config.phoneCssSelector);
     if (phoneNumberDomElement){
         var phone_number = phoneNumberDomElement.value.replace(/\D/g,'');
-        var country_code = country_code.replace(/\D/g,'');
+        var country_code = g_ts_config.country_code.replace(/\D/g,'');
         if (!phone_number.startsWith(country_code)){phone_number = country_code+phone_number}
         phone_number = `+${phone_number}`;
         if (! g_ts_config.phoneRegEx.test(phone_number)){ 
