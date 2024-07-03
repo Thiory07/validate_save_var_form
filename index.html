@@ -49,6 +49,30 @@
         <p class="hidden">Enviado</p>
     </div>
 
+
+    <div>
+        <h2>Form 2 - no validation form</h2>
+        <form action="#">
+            <input required type="text" name="nome" placeholder="Nome">
+            <input required type="text" name="tel" placeholder="Phone Number">
+            <input required type="text" name="email" placeholder="email@email.com">
+            ----
+            <!-- <input required type="text" name="First_name" placeholder="First name">
+            <input required type="text" name="Last_name" placeholder="Last Name">
+            <input required type="text" name="Street_Address" placeholder="Street Address">
+            <input required type="text" name="City" placeholder="City">
+            <input required type="text" name="Region" placeholder="Region">
+            <input required type="text" name="Country" placeholder="Country">
+            <input required type="text" name="Postal Code" placeholder="Postal Code"> -->
+
+            <button type="submit">Converter</button>
+        </form>
+        <!-- <button type="submit">Evento do usuário</button>
+        <textarea name="Console" id="" cols="30" rows="10" placeholder="Console"></textarea> -->
+        <p class="hidden">Enviado</p>
+    </div>
+
+
     <script>
     document.querySelector('form').addEventListener('submit', function(e){
        e.preventDefault();
