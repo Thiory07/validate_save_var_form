@@ -21,7 +21,7 @@ var g_ts_config = {
     if (emailDomElement){
         var email = emailDomElement.value.trim();
         if(g_ts_config.emailRegEx.test(email)){
-            console.log(`TS info: The email saved to Javascript Variable is (${email});`);
+            console.log(`TS info: The email saved to Javascript (window.g_ts_obj) Variable is (${email});`);
             window.g_ts_obj.email = email;
         }
     }
@@ -35,6 +35,7 @@ var g_ts_config = {
             console.log(`TS alert: the phone (${phone_number}) is not valid`);
             return;
         }
+        console.log(`TS info: The phone_number saved to Javascript (window.g_ts_obj) Variable is (${email});`);
         window.g_ts_obj.phone_number = phone_number;
     }
     if(!window.g_ts_obj.phone_number && !window.g_ts_obj.email){
