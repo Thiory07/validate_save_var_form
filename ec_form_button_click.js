@@ -22,7 +22,7 @@ var g_ts_config = {
 
     if (!g_ts_config.phoneRegEx.test(phone_number)){ console.log(`TS alert: the phone (${phone_number}) is not valid`);return;}
 
-    console.log(`TS info: The phone_number saved to Javascript variable window.g_ts_obj is (${email});`);
+    console.log(`TS info: The phone_number saved to Javascript variable window.g_ts_obj is (${phone_number});`);
     window.g_ts_obj.phone_number = phone_number;
    }
    window.g_ts_config.saveEmail = function(emailDomElement){
