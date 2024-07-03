@@ -1,8 +1,8 @@
 var g_ts_config = {
+    submitButtonCssSelector: '[type="submit"]',
     emailCssSelector :'[type=email]',
     phoneCssSelector : '[type=tel]',
     country_code: '+57',
-    submitButtonCssSelector: '[type="submit"]',
     emailRegEx: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     phoneRegEx: /^\+[1-9]\d{6,14}$/
    };
