@@ -18,11 +18,11 @@ window.g_ts_config.saveToWindowVar = function (regEx,value,variable) {
 
 document.addEventListener('click', function (e) {
   var el = e.target;
-  var emailDomElement = form.querySelector(g_ts_config.emailCssSelector);
-  var phoneNumberDomElement = form.querySelector(g_ts_config.phoneCssSelector);
   /* if not the submit button, stop the function */
   if (!el.matches(g_ts_config.submitButtonCssSelector) && !el.closest(g_ts_config.submitButtonCssSelector)) { return; }
 
+  var emailDomElement = form.querySelector(g_ts_config.emailCssSelector);
+  var phoneNumberDomElement = form.querySelector(g_ts_config.phoneCssSelector);
   var form = el.closest('form');
   if (!form) { console.log(`TS warning: No parent form found`); return; }
   
