@@ -25,6 +25,7 @@ window.g_ts_config.submitClick = function (e) {
     console.log(`TS info: No Email Element found`);
   }
 
+
   if (phoneNumberDomElement) {
     var inputvalue = phoneNumberDomElement.value.replace(/\D/g, "");
     var country_code = g_ts_config.country_code.replace(/\D/g, "");
