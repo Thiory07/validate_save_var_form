@@ -56,6 +56,5 @@ var g_ts_config = {
   window.g_ts_config.timedTryAddSubmitClickListener = function(time){
     if (!window.g_ts_config.addSubmitClickListener() ) setTimeout(window.g_ts_config.timedTryAddSubmitClickListener, time);
   }
-
   // start: 
   window.g_ts_config.timedTryAddSubmitClickListener(500);
