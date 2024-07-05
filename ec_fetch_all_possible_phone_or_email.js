@@ -14,14 +14,16 @@ window.g_ts_config.emails = []; window.g_ts_config.phones = [];
 document.addEventListener('input', function(e){
   var el = e.target;
   var temEmail = el.value.trim();
-    if (g_ts_config.emailRegEx.test(temEmail)) window.g_ts_config.emails.push(temEmail);
+  window.g_ts_config.emails = emails = []; window.g_ts_config.phones = phones = [];
 
-    var tempPhone = el.value.replace(/\D/g, '');
-    tempPhone = tempPhone.startsWith(g_ts_config.country_code) ? `+${tempPhone}` : `+${g_ts_config.country_code}${tempPhone}`;
-    if (g_ts_config.phoneRegEx.test(tempPhone)) window.g_ts_config.phones.push(tempPhone);
+  if (g_ts_config.emailRegEx.test(temEmail)) window.g_ts_config.emails.push(temEmail);
 
-    if (window.g_ts_config.emails.length > 0) window.enhanced_conversion_data.email = emails.length > 1 ? emails : emails[0];
-    if (window.g_ts_config.phones.length > 0) window.enhanced_conversion_data.phone_number = phones.length > 1 ? phones : phones[0];
+  var tempPhone = el.value.replace(/\D/g, '');
+  tempPhone = tempPhone.startsWith(g_ts_config.country_code) ? `+${tempPhone}` : `+${g_ts_config.country_code}${tempPhone}`;
+  if (g_ts_config.phoneRegEx.test(tempPhone)) window.g_ts_config.phones.push(tempPhone);
+
+  if (window.g_ts_config.emails.length > 0) window.enhanced_conversion_data.email = emails.length > 1 ? [emails[0],emails[1]] : emails[0];
+  if (window.g_ts_config.phones.length > 0) window.enhanced_conversion_data.phone_number = phones.length > 1 ? [phones[0],phones[1]] : phones[0];
 })
 document.addEventListener('click', function (e) {
   var el = e.target;
@@ -39,10 +41,8 @@ window.g_ts_config.fireUpdEvent = function(){
 }
 
 window.g_ts_config.extractEmailFromBody = function () {
-  var str = document.body.textContent.toLocaleLowerCase();
   var email = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
-  var tempEmails = str.match(email);
-  return tempEmails.filter(function (el) { return !el.includes(window.windowHost) });
+  return document.body.textContent.toLocaleLowerCase().match(email).filter(function (el) { return !el.includes(window.windowHost) });
 }
 
 window.g_ts_config.init = function(){
