@@ -1,8 +1,8 @@
 var g_ts_config = {
   /* Configurations */
   CSSEmail :'[type=email]',
-  CSSPhoneNumber : '[name="#/properties/telefono"]',
-  country_code: '+57',
+  CSSPhoneNumber : '[name="phone"]',
+  country_code: '+55',
   CSSSubmitButton: '[type="submit"]',
   /* Regular expressions */
   emailRegEx: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -29,6 +29,7 @@ var g_ts_config = {
  
  document.addEventListener('click',  function(e){
   var  element = e.target;
+  console.log(e.target);
   if(!element.matches(g_ts_config.CSSSubmitButton) && ! element.closest(g_ts_config.CSSSubmitButton)) {return; /* not the submit button */}
   if(!window.g_ts_obj.phone_number && !window.g_ts_obj.email){return; /* There is no E-mail nor Phone number */}
   console.log('TS alert: user-provided_data_event on DataLayer, use The Javacript variable: window.g_ts_obj \n(Email:'+ window.g_ts_obj.email+ ', Phone_number:'+window.g_ts_obj.phone_number+')');
