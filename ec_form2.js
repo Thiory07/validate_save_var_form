@@ -2,6 +2,7 @@ var g_ts_config = {
   /* Configurations */
   CSSEmail :'[type=email]',
   CSSPhoneNumber : '[name="phone"]',
+  CSSCountryCode : '[name="cc"]',
   country_code: '+55',
   CSSSubmitButton: '[type="submit"]',
   /* Regular expressions */
@@ -9,21 +10,32 @@ var g_ts_config = {
   phoneRegEx: /^\+[1-9]\d{6,14}$/
  };
  window.g_ts_obj = window.g_ts_obj||{};
+ window.g_ECObj = window.g_ECObj||{};
  
  document.addEventListener('input',function(e){
   var input = e.target,
    isEmail = input.matches(g_ts_config.CSSEmail),
-   isPhoneNumber = input.matches(g_ts_config.CSSPhoneNumber);
+   isPhoneNumber = input.matches(g_ts_config.CSSPhoneNumber),
+   isCountryCode = input.matches(g_ts_config.CSSCountryCode);
+   g_ts_config.temp_cc = g_ts_config.temp_cc || g_ts_config.country_code;
+
   if (!isEmail && !isPhoneNumber) {return; /* Not the e-mail nor the Phonenumber input */}
   if (isEmail && g_ts_config.emailRegEx.test(input.value) ) {
    console.log( 'TS alert: '+ input.value+' is a valid e-mail;' );
-   window.g_ts_obj.email = input.value
+   window.g_ts_obj.email = input.value;
+   window.g_ECObj.email = input.value;
+   return;
   }  
+  if (isCountryCode){
+    window.temp_cc = input.value.replace(/\D/g,'');
+    return;
+  }
   if (isPhoneNumber)  {
-   var tel = '+' +  (g_ts_config.country_code + input.value).replace(/\D/g,'');
+   var tel = '+' +  (g_ts_config.temp_cc + '' + input.value).replace(/\D/g,'');
    console.log('TS alert: '+ tel+ ' is a valid phone Number;');
    if (! g_ts_config.phoneRegEx.test(tel)) return;
    window.g_ts_obj.phone_number = tel;
+   window.g_ECObj.phone_number = tel;
   }
  });
  
