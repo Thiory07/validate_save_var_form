@@ -1,9 +1,9 @@
 var g_ts_config = {
   /* Configurations */
   CSSEmail :'[type=email]',
-  CSSPhoneNumber : '[name="phone"]',
-  CSSCountryCode : '[name="cc"]',
-  country_code: '+55',
+  CSSPhoneNumber : '[placeholder="Teléfono*"]',
+  CSSCountryCode : '', // leave empty if there is no country code input
+  country_code: '+34',
   CSSSubmitButton: '[type="submit"]',
   /* Regular expressions */
   emailRegEx: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -15,8 +15,11 @@ var g_ts_config = {
  document.addEventListener('input',function(e){
   var input = e.target,
    isEmail = input.matches(g_ts_config.CSSEmail),
-   isPhoneNumber = input.matches(g_ts_config.CSSPhoneNumber),
-   isCountryCode = input.matches(g_ts_config.CSSCountryCode);
+   isPhoneNumber = input.matches(g_ts_config.CSSPhoneNumber);
+   let isCountryCode = false;
+   if (g_ts_config.CSSCountryCode !=''){
+    isCountryCode = input.matches(g_ts_config.CSSCountryCode);
+   }
    g_ts_config.temp_cc = g_ts_config.temp_cc || g_ts_config.country_code;
 
   if (!isEmail && !isPhoneNumber) {return; /* Not the e-mail nor the Phonenumber input */}
@@ -26,13 +29,10 @@ var g_ts_config = {
    window.g_ECObj.email = input.value;
    return;
   }  
-  if (isCountryCode){
-    g_ts_config.temp_cc = input.value.replace(/\D/g,'');
-    return;
-  }
+
   if (isPhoneNumber)  {
    g_ts_config.temp_cc == g_ts_config.temp_cc || g_ts_config.country_code ; 
-   var DOMCountryCode = document.querySelector('g_ts_config.CSSCountryCode')
+   var DOMCountryCode = document.querySelector(g_ts_config.CSSCountryCode);
    if (DOMCountryCode){
     g_ts_config.temp_cc = DOMCountryCode.value.replace(/\D/g,'');
    }
