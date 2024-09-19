@@ -10,7 +10,7 @@ var g_ts_config = {
   emailRegEx: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   phoneRegEx: /^\+[1-9]\d{6,14}$/
  };
- window.g_ts_obj = window.g_ts_obj||{};
+ window.g_ts_obj = window.g_ts_obj||{}; // objeto para armazenar dados do usuário
  window.g_ECObj = window.g_ECObj||{};
  
  document.addEventListener('input',function(e){
