@@ -1,10 +1,11 @@
 var g_ts_config = {
   /* Configurations */
-  CSSEmail :'[type=email]',
-  CSSPhoneNumber : '[placeholder="Teléfono*"]',
+  CSSEmail :'[type=email]', // email selectors
+  CSSPhoneNumber : '[placeholder="Teléfono*"]', // phone number selectors
   CSSCountryCode : '', // leave empty if there is no country code input
-  country_code: '+34',
-  CSSSubmitButton: '[type="submit"]',
+  CSSSubmitButton: '[type="submit"]', // a button that will generate "user_provided_data_event"
+  country_code: '+55', // if there is no Phone input, hancode the country code
+
   /* Regular expressions */
   emailRegEx: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   phoneRegEx: /^\+[1-9]\d{6,14}$/
