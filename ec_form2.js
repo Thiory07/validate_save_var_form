@@ -33,10 +33,9 @@ var g_ts_config = {
 
   if (isPhoneNumber)  {
    g_ts_config.temp_cc == g_ts_config.temp_cc || g_ts_config.country_code ; 
-   var DOMCountryCode = document.querySelector(g_ts_config.CSSCountryCode);
-   if (DOMCountryCode){
-    g_ts_config.temp_cc = DOMCountryCode.value.replace(/\D/g,'');
-   }
+   var DOMCountryCode;
+   if (g_ts_config.CSSCountryCode) DOMCountryCode = document.querySelector(g_ts_config.CSSCountryCode);
+   if (DOMCountryCode) g_ts_config.temp_cc = DOMCountryCode.value.replace(/\D/g,'');
    var tel = '+' +  (g_ts_config.temp_cc + '' + input.value).replace(/\D/g,'');
    console.log('TS alert: '+ tel+ ' is a valid phone Number;');
    if (! g_ts_config.phoneRegEx.test(tel)) return;

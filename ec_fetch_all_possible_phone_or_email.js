@@ -24,7 +24,7 @@ document.addEventListener('input', function(e){
 
   if (window.g_ts_config.emails.length > 0) window.enhanced_conversion_data.email = emails.length > 1 ? [emails[0],emails[1]] : emails[0];
   if (window.g_ts_config.phones.length > 0) window.enhanced_conversion_data.phone_number = phones.length > 1 ? [phones[0],phones[1]] : phones[0];
-})
+});
 document.addEventListener('click', function (e) {
   var el = e.target;
   /* Not the submit button */
