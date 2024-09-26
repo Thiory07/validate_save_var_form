@@ -2,13 +2,13 @@
 Como usar:
 
 Configuração:
-- Coloque os seletores para os campos de Email , telefone e DDI (código telefonico do país)
-- Coloque o seletor do botão de enviar.
-- Se o site não tiver um campo de DDI, deixe o campo "CSSCountryCode" vazio e prencha o "country_code" com o código do país do site.
+- Coloque os seletores para os campos de Email , telefone e DDI (código telefonico do país);
+- Coloque o seletor do botão de enviar;
+- Se o site não tiver um campo de DDI, deixe o campo "CSSCountryCode" vazio e prencha o "country_code" com o código do país do site;
 
 Acionamentos:
-- este código cria um evento adicional de dados do usuário no dataLayer ou para GTAG.
-- a variável que guarda os dados do usuário na janela é "window.g_ts_obj" que pode ser utilizado para envio de dados para google tag manager ou gtag.
+- este código cria um evento adicional de dados do usuário no dataLayer ou para GTAG, "user_provided_data_event";
+- a variável que guarda os dados do usuário na janela é "window.g_ts_obj" que pode ser utilizado para envio de dados para google tag manager ou gtag;
 */
 var g_ts_config = {
   /* Configurations */
