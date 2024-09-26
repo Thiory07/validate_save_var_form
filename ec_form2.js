@@ -25,7 +25,7 @@ var g_ts_config = {
   
  };
  window.g_ts_obj = window.g_ts_obj||{}; // objeto para armazenar dados do usuário
- window.g_ECObj = window.g_ECObj||{};
+ window.g_ECObj = window.g_ECObj||{}; // objeto para facilitar a curva de aprendizado.d
  
  document.addEventListener('input',function(e){
   var input = e.target,
