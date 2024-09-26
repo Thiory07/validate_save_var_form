@@ -20,7 +20,7 @@ var g_ts_config = {
 
   /* Regular expressions */
   emailRegEx: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  phoneRegEx: /^\+[1-9]\d{6,14}$/
+  phoneRegEx: /^\+[1-9]\d{8,14}$/
 
   
  };
