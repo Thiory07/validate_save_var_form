@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MJBF5BFJ');</script>
-    <!-- End Google Tag Manager -->
+ <!-- Google tag (gtag.js) -->
+ <script async src="https://www.googletagmanager.com/gtag/js?id=DC-4221595"></script>
+ <script>
+   window.dataLayer = window.dataLayer || [];
+   function gtag(){dataLayer.push(arguments);}
+   gtag('js', new Date());
+
+   gtag('config', 'DC-4221595');
+ </script>
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -173,5 +177,25 @@
     </div>
 
     <div><a href="tel:119898898989">(11) 9 8989 - 9898</a></div>
+
+
+
+
+    <script>
+    document.addEventListener('click', function(e){
+        if (!e.target.matches('button'))return; 
+
+        gtag('event', 'conversion', {
+          'allow_custom_scripts': true,
+          'send_to': 'XXX',
+          'user_data': {
+            'email': window.g_ts_obj.email,
+            'phone_number': window.g_ts_obj.phone_number
+          }
+        });
+        
+    });
+      </script>
+      
 </body>
 </html>
