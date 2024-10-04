@@ -31,7 +31,7 @@ var g_ts_config = {
   var input = e.target,
   isEmail = input.matches(g_ts_config.CSSEmail),
   isPhoneNumber = input.matches(g_ts_config.CSSPhoneNumber);
-  let isCountryCode = false;
+  var isCountryCode = false;
 
   if (!isEmail && !isPhoneNumber) {return; /* Not the e-mail nor the Phonenumber input */}
   if (isEmail && g_ts_config.emailRegEx.test(input.value) ) {
