@@ -14,13 +14,13 @@ var g_ts_config = {
   /* Configurations */
   CSSEmail :'[type=email],[name="email"]', 
   CSSPhoneNumber : '[name="tel"]', 
-  CSSCountryCode : '',  
+  CSSCountryCode : '',  // deixe vazio se não houver campo de DDI
   CSSSubmitButton: '[type="submit"]', 
   country_code: '+55', 
 
   /* Regular expressions */
   emailRegEx: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-  phoneRegEx: /^\+[1-9]\d{8,14}$/
+  phoneRegEx: /^\+[1-9]\d{10,14}$/
 
   
  };
@@ -59,7 +59,7 @@ var g_ts_config = {
   if(!element.matches(g_ts_config.CSSSubmitButton) && ! element.closest(g_ts_config.CSSSubmitButton)) {return; /* not the submit button */}
   
   var form = element.closest('form');
-  if(form && form.checkValidity()) {return; /* form exist and is invalid */};
+  if(form && !form.checkValidity()) {return; /* form exist and is invalid */};
   /* Not a form or a valid form; */ 
   if(!window.g_ts_obj.phone_number && !window.g_ts_obj.email){return; /* There is no E-mail nor Phone number */}
   console.log('TS alert: user-provided_data_event on DataLayer, use The Javacript variable: window.g_ts_obj \n(Email:'+ window.g_ts_obj.email+ ', Phone_number:'+window.g_ts_obj.phone_number+')');
