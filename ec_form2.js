@@ -8,7 +8,7 @@ Configuração:
 
 Acionamentos:
 - este código cria um evento adicional de dados do usuário no dataLayer ou para GTAG, "user_provided_data_event";
-- a variável que guarda os dados do usuário na janela é "window.g_ts_obj" que pode ser utilizado para envio de dados para google tag manager ou gtag;
+- a variável que guarda os dados do usuário na janela é "window.g_ts_obj" que pode ser utilizada para envio de dados para google tag manager ou gtag;
 */
 var g_ts_config = {
   /* Configurations */
@@ -57,6 +57,10 @@ var g_ts_config = {
   var  element = e.target;
   console.log(e.target);
   if(!element.matches(g_ts_config.CSSSubmitButton) && ! element.closest(g_ts_config.CSSSubmitButton)) {return; /* not the submit button */}
+  
+  var form = element.closest('form');
+  if(form && form.checkValidity()) {return; /* form exist and is invalid */};
+  /* Not a form or a valid form; */ 
   if(!window.g_ts_obj.phone_number && !window.g_ts_obj.email){return; /* There is no E-mail nor Phone number */}
   console.log('TS alert: user-provided_data_event on DataLayer, use The Javacript variable: window.g_ts_obj \n(Email:'+ window.g_ts_obj.email+ ', Phone_number:'+window.g_ts_obj.phone_number+')');
   window.dataLayer.push({'event': 'user_provided_data_event'});
