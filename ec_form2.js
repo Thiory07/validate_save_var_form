@@ -13,8 +13,8 @@ Acionamentos:
 var g_ts_config = {
   /* Configurations */
   CSSEmail :'[type=email],[name="email"]', 
-  CSSPhoneNumber : '[name="tel"]', 
-  CSSCountryCode : '',  // deixe vazio se não houver campo de DDI
+  CSSPhoneNumber : '[type="tel"]', 
+  CSSCountryCode : '.iti__selected-country',  // deixe vazio se não houver campo de DDI
   CSSSubmitButton: '[type="submit"]', 
   country_code: '+55', 
 
@@ -26,7 +26,8 @@ var g_ts_config = {
  };
  window.g_ts_obj = window.g_ts_obj||{}; // objeto para armazenar dados do usuário
  window.g_ECObj = window.g_ECObj||{}; // objeto para facilitar a curva de aprendizado.d
- 
+
+ window.g_ts.init
  document.addEventListener('input',function(e){
   var input = e.target,
   isEmail = input.matches(g_ts_config.CSSEmail),
@@ -34,18 +35,26 @@ var g_ts_config = {
   var isCountryCode = false;
 
   if (!isEmail && !isPhoneNumber) {return; /* Not the e-mail nor the Phonenumber input */}
-  if (isEmail && g_ts_config.emailRegEx.test(input.value) ) {
-   console.log( 'TS alert: '+ input.value+' is a valid e-mail;' );
-   window.g_ts_obj.email = window.g_ECObj.email = input.value;
+
+  var input_value = input.value || input.textContent.trim();
+
+  if (isEmail && g_ts_config.emailRegEx.test(input_value) ) {
+   console.log( 'TS alert: '+ input_value+' is a valid e-mail;' );
+   window.g_ts_obj.email = window.g_ECObj.email = input_value;
    return;
   }  
 
   if (isPhoneNumber)  { 
    var DOMCountryCode;
-   if (g_ts_config.CSSCountryCode && g_ts_config.CSSCountryCode !='') DOMCountryCode = document.querySelector(g_ts_config.CSSCountryCode);
-   if (DOMCountryCode) g_ts_config.temp_cc = DOMCountryCode.value.replace(/\D/g,'');
+   if (g_ts_config.CSSCountryCode && g_ts_config.CSSCountryCode !='') {
+    DOMCountryCode = document.querySelector(g_ts_config.CSSCountryCode);
+    var country_code_value = DOMCountryCode.value || DOMCountryCode.textContent.trim();
+   }
+
+   
+   if (DOMCountryCode) g_ts_config.temp_cc = country_code_value.replace(/\D/g,'');
    g_ts_config.temp_cc = g_ts_config.temp_cc || g_ts_config.country_code ;
-   var tel = '+' +  (g_ts_config.temp_cc + '' + input.value).replace(/\D/g,'');
+   var tel = '+' +  (g_ts_config.temp_cc + '' + input_value).replace(/\D/g,'');
    if (! g_ts_config.phoneRegEx.test(tel)) return;
    
    console.log('TS alert: '+ tel+ ' is a valid phone Number;');
