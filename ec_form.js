@@ -1,71 +1,77 @@
-// Tracking Solution class
-window.g_ts = { 
-  emailCSSSelector: "[type=email]",
-  phoneCSSSelector: "[type=tel]",
-  country_code: '55',
-  countryCideCSSSelector: "", // optional
-  sendButtonCSSSelector: '[type="submit"]', // optional
+/* 
+Como usar:
 
-  // Helper variables
-  isValidemail: false,
-  isValidphone_number: false,
-};
-window.g_ts_pii= window.g_ts_pii || {};
+Configuração:
+- Coloque os seletores para os campos de Email , telefone e DDI (código telefonico do país);
+- Coloque o seletor do botão de enviar;
+- Se o site não tiver um campo de DDI, deixe o campo "CSSCountryCode" vazio e prencha o "country_code" com o código do país do site;
 
-// checks if it has the + sign and if it is has 2 and 15 numbers
-window.g_ts.validatePhone = function(tel){return /^\+[1-9]\d{1,14}$/.test(tel);}
-// verifies if the email is valid.
-window.g_ts.validateMail = function(email){return /\S+@\S+\.\S+/.test(email);}
-// filters the first valid email from text;
-window.g_ts.filterEmail = function(text) {return text.match(/[a-zA-Z0-9-_.]+@[a-zA-Z0-9-_.]+/gi)[0];}
-// filters phone number, removing all custom characters
-window.g_ts.filterPhone = function(tel) {
-  var country_code = window.g_ts.country_code;
-  tel = tel.replace(/\D/g, '');
-  if (!tel.startsWith(country_code)){ tel = country_code+ tel}
-  return '+'+tel;
-}
+Acionamentos:
+- este código cria um evento adicional de dados do usuário no dataLayer ou para GTAG, "user_provided_data_event";
+- a variável que guarda os dados do usuário na janela é "window.g_ts_obj" que pode ser utilizada para envio de dados para google tag manager ou gtag;
+*/
+var g_ts_config = {
+  /* Configurations */
+  CSSEmail :'[type=email],[name="email"]', 
+  CSSPhoneNumber : '[type="tel"]', 
+  CSSCountryCode : '.iti__selected-country',  // deixe vazio se não houver campo de DDI
+  CSSSubmitButton: '[type="submit"]', 
+  country_code: '+55', 
 
-// function mais genérica:
-window.g_ts.saveToVar = function(input, filterVar, validateVar, varName){
- var temp_var = input.value;
- temp_var = filterVar(temp_var);
- if ( !validateVar(temp_var)){
-  console.log(`TS Error saveToVar: ${varName} inválido`);return;
- }
- window.g_ts[`isValid${varName}`] =  true;
- window.g_ts_pii[varName] = temp_var;
-}
+  /* Regular expressions */
+  emailRegEx: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  phoneRegEx: /^\+[1-9]\d{10,14}$/
 
-// Ouvir Inputs
-document.addEventListener( 'input', function(e){  
+  
+ };
+ window.g_ts_obj = window.g_ts_obj||{}; // objeto para armazenar dados do usuário
+ window.g_ECObj = window.g_ECObj||{}; // objeto para facilitar a curva de aprendizado.d
+
+ window.g_ts.init
+ document.addEventListener('input',function(e){
   var input = e.target,
-   isEmail = window.g_ts.emailCSSSelector? input.matches(window.g_ts.emailCSSSelector):false,
-   isPhone = window.g_ts.phoneCSSSelector? input.matches(window.g_ts.phoneCSSSelector):false;
+  isEmail = input.matches(g_ts_config.CSSEmail),
+  isPhoneNumber = input.matches(g_ts_config.CSSPhoneNumber);
+  var isCountryCode = false;
 
-  if ( !isPhone && !isEmail ) return;
-  if (isEmail){
-    window.g_ts.saveToVar(input, window.g_ts.filterEmail, window.g_ts.validateMail, 'email' );
-    return;
-  } 
-  if (isPhone){window.g_ts.saveToVar(input, window.g_ts.filterPhone, window.g_ts.validatePhone, 'phone_number' );return;} 
-});
+  if (!isEmail && !isPhoneNumber) {return; /* Not the e-mail nor the Phonenumber input */}
 
-// Submit
-document.addEventListener( 'click', function(e){  
-  var button = e.target;
-  //check if it is the submit button:
-  if ( !button.matches(window.g_ts.sendButtonCSSSelector) && !button.closest(window.g_ts.sendButtonCSSSelector)) return;
-  console.log('TS: botão enviar clicado');
-  // find the eclosest Form;
-  var  form= e.target.closest('form');
-  if (!form){console.log('TS Error: Não é um form'); return;}
-  if (!form.checkValidity()){console.log('TS: form inválido pelo HTML'); return; }
-  if (window.g_ts_pii.email  && window.g_ts.isValidEmail){errors.push('TS Error:Erro de validação no email'); return;};
-  if (window.g_ts_pii.phone_number && window.g_ts.isValidPhone ) {errors.push('TS Error:Erro de validação no phone number'); return;};
+  var input_value = input.value || input.textContent.trim();
 
-  window.dataLayer = window.dataLayer || [];
-  console.log('TS: DataLayer UPD event push e variável g_ts_pii na janela');
+  if (isEmail && g_ts_config.emailRegEx.test(input_value) ) {
+   console.log( 'TS alert: '+ input_value+' is a valid e-mail;' );
+   window.g_ts_obj.email = window.g_ECObj.email = input_value;
+   return;
+  }  
 
-  window.dataLayer.push({'event': 'upd event'});
-});
+  if (isPhoneNumber)  { 
+   var DOMCountryCode;
+   if (g_ts_config.CSSCountryCode && g_ts_config.CSSCountryCode !='') {
+    DOMCountryCode = document.querySelector(g_ts_config.CSSCountryCode);
+    var country_code_value = DOMCountryCode.value || DOMCountryCode.textContent.trim();
+   }
+
+   
+   if (DOMCountryCode) g_ts_config.temp_cc = country_code_value.replace(/\D/g,'');
+   g_ts_config.temp_cc = g_ts_config.temp_cc || g_ts_config.country_code ;
+   var tel = '+' +  (g_ts_config.temp_cc + '' + input_value).replace(/\D/g,'');
+   if (! g_ts_config.phoneRegEx.test(tel)) return;
+   
+   console.log('TS alert: '+ tel+ ' is a valid phone Number;');
+   window.g_ts_obj.phone_number = window.g_ECObj.phone_number = tel;
+  }
+ });
+ 
+ document.addEventListener('click',  function(e){
+  var  element = e.target;
+  console.log(e.target);
+  if(!element.matches(g_ts_config.CSSSubmitButton) && ! element.closest(g_ts_config.CSSSubmitButton)) {return; /* not the submit button */}
+  
+  var form = element.closest('form');
+  if(form && !form.checkValidity()) {return; /* form exist and is invalid */};
+  /* Not a form or a valid form; */ 
+  if(!window.g_ts_obj.phone_number && !window.g_ts_obj.email){return; /* There is no E-mail nor Phone number */}
+  console.log('TS alert: user-provided_data_event on DataLayer, use The Javacript variable: window.g_ts_obj \n(Email:'+ window.g_ts_obj.email+ ', Phone_number:'+window.g_ts_obj.phone_number+')');
+  window.dataLayer.push({'event': 'user_provided_data_event'});
+  if( gtag ) gtag('set', 'user_data', window.g_ts_obj);
+ });
