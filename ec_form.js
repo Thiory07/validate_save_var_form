@@ -14,7 +14,7 @@ var g_ts_config = {
   /* Configurations */
   CSSEmail :'[type=email],[name="email"]', 
   CSSPhoneNumber : '[type="tel"]', 
-  CSSCountryCode : '.iti__selected-country',  // deixe vazio se não houver campo de DDI
+  CSSCountryCode : '.teste',  // deixe vazio se não houver campo de DDI
   CSSSubmitButton: '[type="submit"]', 
   country_code: '+55', 
 
@@ -27,51 +27,57 @@ var g_ts_config = {
  window.g_ts_obj = window.g_ts_obj||{}; // objeto para armazenar dados do usuário
  window.g_ECObj = window.g_ECObj||{}; // objeto para facilitar a curva de aprendizado.d
 
- window.g_ts.init
- document.addEventListener('input',function(e){
-  var input = e.target,
-  isEmail = input.matches(g_ts_config.CSSEmail),
-  isPhoneNumber = input.matches(g_ts_config.CSSPhoneNumber);
-  var isCountryCode = false;
+ window.g_ts_obj.init = function(){
+  document.addEventListener('input',function(e){
+    var input = e.target,
+    isEmail = input.matches(g_ts_config.CSSEmail),
+    isPhoneNumber = input.matches(g_ts_config.CSSPhoneNumber);
+    
+    if (!isEmail && !isPhoneNumber) {return; /* Not the e-mail nor the Phonenumber input */}
 
-  if (!isEmail && !isPhoneNumber) {return; /* Not the e-mail nor the Phonenumber input */}
+    var input_value = input.value || input.textContent.trim();
 
-  var input_value = input.value || input.textContent.trim();
+    if (isEmail && g_ts_config.emailRegEx.test(input_value) ) {
+      console.log( 'TS alert: '+ input_value+' is a valid e-mail;' );
+      window.g_ts_obj.email = window.g_ECObj.email = input_value;
+      return;
+    }  
 
-  if (isEmail && g_ts_config.emailRegEx.test(input_value) ) {
-   console.log( 'TS alert: '+ input_value+' is a valid e-mail;' );
-   window.g_ts_obj.email = window.g_ECObj.email = input_value;
-   return;
-  }  
-
-  if (isPhoneNumber)  { 
-   var DOMCountryCode;
-   if (g_ts_config.CSSCountryCode && g_ts_config.CSSCountryCode !='') {
-    DOMCountryCode = document.querySelector(g_ts_config.CSSCountryCode);
-    var country_code_value = DOMCountryCode.value || DOMCountryCode.textContent.trim();
-   }
-
-   
-   if (DOMCountryCode) g_ts_config.temp_cc = country_code_value.replace(/\D/g,'');
-   g_ts_config.temp_cc = g_ts_config.temp_cc || g_ts_config.country_code ;
-   var tel = '+' +  (g_ts_config.temp_cc + '' + input_value).replace(/\D/g,'');
-   if (! g_ts_config.phoneRegEx.test(tel)) return;
-   
-   console.log('TS alert: '+ tel+ ' is a valid phone Number;');
-   window.g_ts_obj.phone_number = window.g_ECObj.phone_number = tel;
-  }
+    if (isPhoneNumber)  { 
+      var DOMCountryCode, country_code_value;
+      if (g_ts_config.CSSCountryCode && g_ts_config.CSSCountryCode !='') {
+       DOMCountryCode = document.querySelector(g_ts_config.CSSCountryCode);
+       if(DOMCountryCode){
+        country_code_value = DOMCountryCode.value || DOMCountryCode.textContent.trim();
+       }else {
+        country_code_value = g_ts_config.country_code;
+       }
+      }
+      if (DOMCountryCode) { g_ts_config.temp_cc = country_code_value.replace(/\D/g,''); };
+      g_ts_config.temp_cc = g_ts_config.temp_cc || g_ts_config.country_code ;
+      var tel = '+' +  (g_ts_config.temp_cc + '' + input_value).replace(/\D/g,'');
+      if (! g_ts_config.phoneRegEx.test(tel)) { return; };
+      console.log('TS alert: '+ tel+ ' is a valid phone Number;');
+      window.g_ts_obj.phone_number = window.g_ECObj.phone_number = tel;
+    }
  });
  
  document.addEventListener('click',  function(e){
-  var  element = e.target;
+  var element = e.target;
   console.log(e.target);
-  if(!element.matches(g_ts_config.CSSSubmitButton) && ! element.closest(g_ts_config.CSSSubmitButton)) {return; /* not the submit button */}
+  if(!element.matches(g_ts_config.CSSSubmitButton) && ! element.closest(g_ts_config.CSSSubmitButton)) {
+    return; /* not the submit button */
+  }
   
   var form = element.closest('form');
   if(form && !form.checkValidity()) {return; /* form exist and is invalid */};
   /* Not a form or a valid form; */ 
-  if(!window.g_ts_obj.phone_number && !window.g_ts_obj.email){return; /* There is no E-mail nor Phone number */}
+  if(!window.g_ts_obj.phone_number && !window.g_ts_obj.email){return; /* There is neither E-mail nor Phone number */}
   console.log('TS alert: user-provided_data_event on DataLayer, use The Javacript variable: window.g_ts_obj \n(Email:'+ window.g_ts_obj.email+ ', Phone_number:'+window.g_ts_obj.phone_number+')');
   window.dataLayer.push({'event': 'user_provided_data_event'});
   if( gtag ) gtag('set', 'user_data', window.g_ts_obj);
  });
+
+}
+
+window.g_ts_obj.init();
