@@ -24,9 +24,16 @@ window.g_ts_config.init = function(){
             window.g_ts_config.saveEmail( DOMEmail);
         }
         var DOMphone_number = form.querySelector(window.g_ts_config.CSSPhoneNumber);
+        if ( DOMphone_number ){
+            window.g_ts_config.phoneNumber( DOMphone_number );
+        }
     });
 };
-git ad
-window.g_ts_config.saveEmail = function( DOMEmail ){
-    DOMEmail
+
+window.g_ts_config.saveEmail = function ( DOMEmail ){
+    DOMEmail;
+}
+
+window.g_ts_config.phoneNumber = function ( DOMphone_number ){
+    DOMphone_number;
 }
