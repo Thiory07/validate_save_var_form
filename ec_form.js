@@ -21,13 +21,11 @@ var g_ts_config = {
   /* Regular expressions */
   emailRegEx: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   phoneRegEx: /^\+[1-9]\d{10,14}$/
-
-  
  };
  window.g_ts_obj = window.g_ts_obj||{}; // objeto para armazenar dados do usuário
  window.g_ECObj = window.g_ECObj||{}; // objeto para facilitar a curva de aprendizado.d
 
- window.g_ts_obj.init = function(){
+ window.g_ts_config.init = function(){
   document.addEventListener('input',function(e){
     var input = e.target,
     isEmail = input.matches(g_ts_config.CSSEmail),
@@ -80,4 +78,4 @@ var g_ts_config = {
 
 }
 
-window.g_ts_obj.init();
+window.g_ts_config.init();
