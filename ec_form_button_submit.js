@@ -5,7 +5,6 @@ var g_ts_config = {
     CSSCountryCode : '.teste',  // deixe vazio se não houver campo de DDI
     CSSSubmitButton: '[type="submit"]', 
     country_code: '+55', 
-
     /* Regular expressions */
     emailRegEx: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     phoneRegEx: /^\+[1-9]\d{10,14}$/
@@ -24,6 +23,10 @@ window.g_ts_config.init = function(){
         if ( DOMEmail){
             window.g_ts_config.saveEmail( DOMEmail);
         }
-        var phone_number = form.querySelector(window.g_ts_config.CSSPhoneNumber);
+        var DOMphone_number = form.querySelector(window.g_ts_config.CSSPhoneNumber);
     });
 };
+git ad
+window.g_ts_config.saveEmail = function( DOMEmail ){
+    DOMEmail
+}
