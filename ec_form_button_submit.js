@@ -35,7 +35,7 @@ window.g_ts_config.saveEmail = function ( DOMEmail ){
     var input_value = DOMEmail.value;
     if (g_ts_config.emailRegEx.test(input_value) ) {
         console.log( 'TS alert: '+ input_value+' is a valid e-mail;' );
-        window.g_ts_obj.email = window.g_ECObj.email = input_value;
+        window.g_ts_obj.email = input_value;
         return;
     }
 }
@@ -52,12 +52,14 @@ window.g_ts_config.savePhoneNumber = function ( DOMphone_number ){
         }
     }
     country_code_value = country_code_value || window.g_ts_config.country_code;
-    var tel = '+' +  (country_code_value + '' + input_value).replace(/\D/g,'');
+    tel = '+' +  (country_code_value + '' + tel).replace(/\D/g,'');
     if (! g_ts_config.phoneRegEx.test(tel)) { return; };
     console.log('TS alert: '+ tel+ ' is a valid phone Number;');
-    window.g_ts_obj.phone_number = window.g_ECObj.phone_number = tel;
+    window.g_ts_obj.phone_number = tel;
 }
-window.g_ts_config.dispatchEvent = function() {
+window.g_ts_config.dispatchEvent = function() {  
     console.log('TS alert: '+window.g_ts_config.event_name+'  on DataLayer, use The Javacript variable: window.g_ts_obj \n(Email:'+ window.g_ts_obj.email+ ', Phone_number:'+window.g_ts_obj.phone_number+')');
     window.dataLayer.push({'event': 'user_provided_data_event'});
 }
+
+window.g_ts_config.init ();
