@@ -59,7 +59,7 @@ window.g_ts_config.savePhoneNumber = function ( DOMphone_number ){
 }
 window.g_ts_config.dispatchEvent = function() {  
     console.log('TS alert: '+window.g_ts_config.event_name+'  on DataLayer, use The Javacript variable: window.g_ts_obj \n(Email:'+ window.g_ts_obj.email+ ', Phone_number:'+window.g_ts_obj.phone_number+')');
-    window.dataLayer.push({'event': 'user_provided_data_event'});
+    window.dataLayer.push({'event': window.g_ts_config.event_name});
 }
 
 window.g_ts_config.init ();
