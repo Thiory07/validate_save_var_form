@@ -22,6 +22,7 @@ window.g_ts_config.init = function(){
         if (form && !form.checkValidity()) return; /* form exist but it is NOT HTML valid */
         
         var DOMEmail = form.querySelector(window.g_ts_config.CSSEmail);
+        DOMEmail.required = true;
         if ( DOMEmail)window.g_ts_config.saveEmail( DOMEmail);
         
         var DOMphone_number = form.querySelector(window.g_ts_config.CSSPhoneNumber);
