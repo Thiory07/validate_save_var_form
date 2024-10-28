@@ -12,6 +12,7 @@ var g_ts_config = {
     phoneRegEx: /^\+[1-9]\d{10,14}$/
 };
 window.g_ts_obj = window.g_ts_obj||{}; // objeto para armazenar dados do usuário
+window.g_ECObj = window.g_ECObj||{}; 
 
 window.g_ts_config.init = function(){
     document.addEventListener('click', function(e){
