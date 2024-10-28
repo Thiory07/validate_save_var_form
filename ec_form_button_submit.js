@@ -28,6 +28,7 @@ window.g_ts_config.init = function(){
         if ( DOMphone_number )window.g_ts_config.savePhoneNumber( DOMphone_number );
 
         if (!window.g_ts_obj.email && !window.g_ts_obj.phone_number) return; /* There is neither E-mail nor Phone number */
+        window.g_ECObj = window.g_ts_obj;
         window.g_ts_config.dispatchEvent();
     });
 };
