@@ -23,7 +23,7 @@ window.g_ts__app.findEmailsStart = function(){
   window.g_ts__pii.email = emails[0];
   console.log(window.g_ts__pii.email);
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(window.g_ts__pii.email)){
-    window.dataLayer.push(window.g_ts__config.user_provided_data_event);
+    window.dataLayer.push({ event:window.g_ts__config.user_provided_data_event});
   }
 };
 
